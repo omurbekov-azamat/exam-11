@@ -62,3 +62,14 @@ export const getOneProduct = createAsyncThunk<OneProductApi , string>(
         }
     }
 );
+
+export const deleteProduct = createAsyncThunk<void, string>(
+    'products/deleteProduct',
+    async (id) => {
+        try {
+            await axiosApi.delete('/products/' + id);
+        } catch (e) {
+            throw e;
+        }
+    }
+);
