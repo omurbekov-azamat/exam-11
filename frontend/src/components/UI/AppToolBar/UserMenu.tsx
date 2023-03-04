@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Button, Menu, MenuItem} from '@mui/material';
-import {useAppDispatch, useAppSelector} from "../../app/hook";
-import {logout} from "../../features/user/usersThunks";
-import {selectLogoutLoading} from "../../features/user/usersSlice";
-import {User} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../../app/hook";
+import {logout} from "../../../features/user/usersThunks";
+import {selectLogoutLoading} from "../../../features/user/usersSlice";
+import {User} from "../../../types";
 
 interface Props {
     user: User;

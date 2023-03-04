@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {useAppSelector} from "../../app/hook";
-import {selectUser} from "../../features/user/usersSlice";
+import {useAppSelector} from "../../../app/hook";
+import {selectUser} from "../../../features/user/usersSlice";
 import {styled, AppBar, Toolbar, Grid, Typography} from "@mui/material";
 import AnonymousMenu from "./AnonymousMenu";
 import UserMenu from "./UserMenu";

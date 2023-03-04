@@ -3,6 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 import {usersReducer} from "../features/user/usersSlice";
+import {productsReducer} from "../features/product/productsSlice";
 
 const usersPersistConfig = {
     key: 'spotify:users',
@@ -12,6 +13,7 @@ const usersPersistConfig = {
 
 const rootReducer = combineReducers({
     users: persistReducer(usersPersistConfig, usersReducer),
+    products: productsReducer,
 });
 
 export const store = configureStore({

@@ -38,3 +38,11 @@ export interface LoginMutation {
 export type GlobalError = {
     error: string;
 }
+
+export interface ProductMutation {
+    title: string;
+    category: string;
+    description: string;
+    price: string;
+    image: File | null;
+}
