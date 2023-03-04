@@ -1,13 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
-import {createProduct, fetchProducts} from "./productsThunk";
-import {ProductApi, ValidationError} from "../../types";
+import {createProduct, fetchProducts, getOneProduct} from "./productsThunk";
+import {OneProductApi, ProductApi, ValidationError} from "../../types";
 
 interface ProductsState {
     createProductLoading: boolean;
     productError: ValidationError | null;
     products: ProductApi[];
     productsFetchingLoading: boolean;
+    oneProduct: OneProductApi | null;
+    oneProductFetchingLoading: boolean;
 }
 
 const initialState: ProductsState = {
@@ -15,6 +17,8 @@ const initialState: ProductsState = {
     productError: null,
     products: [],
     productsFetchingLoading: false,
+    oneProduct: null,
+    oneProductFetchingLoading: false,
 };
 
 export const productsSlice = createSlice({
@@ -44,6 +48,17 @@ export const productsSlice = createSlice({
         builder.addCase(fetchProducts.rejected, (state) => {
             state.productsFetchingLoading = false;
         });
+        builder.addCase(getOneProduct.pending, (state) => {
+            state.oneProduct = null;
+            state.oneProductFetchingLoading = true;
+        });
+        builder.addCase(getOneProduct.fulfilled, (state, {payload: product}) => {
+            state.oneProductFetchingLoading = false;
+            state.oneProduct = product;
+        });
+        builder.addCase(getOneProduct.rejected, (state) => {
+            state.productsFetchingLoading = false;
+        });
     }
 });
 
@@ -53,3 +68,5 @@ export const selectCreateProductLoading = (state: RootState) => state.products.c
 export const selectProductError = (state: RootState) => state.products.productError;
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectProductsLoading = (state: RootState) => state.products.productsFetchingLoading
+export const selectOneProduct = (state: RootState) => state.products.oneProduct;
+export const selectOneProductLoading = (state: RootState) => state.products.oneProductFetchingLoading;

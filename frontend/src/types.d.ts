@@ -56,3 +56,18 @@ export interface ProductApi {
     user: string;
     _id: string;
 }
+
+export interface OneProductApi {
+    category: string;
+    description: string;
+    image: string;
+    price: number;
+    title: string;
+    user: {
+        _id: string;
+        username: string;
+        displayName: string;
+        phoneNumber: string;
+    };
+    _id: string;
+}

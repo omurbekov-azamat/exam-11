@@ -32,20 +32,26 @@ productsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, ne
 
 productsRouter.get('/', async (req, res, next) => {
     try {
-        const result = await Product.find();
-        return res.send(result);
-    } catch (e) {
-        return next(e);
-    }
-});
+        if (req.query.category_name) {
 
-productsRouter.get('/:category', async (req, res, next) => {
-    try {
-        const result = await Product.find({category: req.params.category}).populate({path: 'user', select: 'displayName'});
-        if (!result) {
-            return res.status(404).send({error: 'Not found'});
+            const categoryName = req.query.category_name as string;
+            const result = await Product.find({category: categoryName});
+            return res.send(result);
+
+        } else if (req.query.item_id) {
+
+            const item_id = req.query.item_id as string;
+            const result = await Product.findById(item_id).populate({path: 'user', select: ['username', 'displayName', 'phoneNumber']});
+
+            if (!result) {
+                return res.status(404).send({error: 'Not found'});
+            }
+
+            return res.send(result);
+
         }
 
+        const result = await Product.find();
         return res.send(result);
     } catch (e) {
         return next(e);

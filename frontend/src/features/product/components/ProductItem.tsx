@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, CardActionArea, CardContent, CardMedia, Grid, Typography} from "@mui/material";
 import {apiURL} from "../../../constants";
+import {NavLink} from "react-router-dom";
 import {ProductApi} from "../../../types";
 
 interface Props {
@@ -11,7 +12,7 @@ const ProductItem: React.FC<Props> = ({item}) => {
     return (
         <Grid item>
             <Card sx={{ width: 200 }}>
-                <CardActionArea>
+                <CardActionArea component={NavLink} to={'/items/' + item._id}>
                     <CardMedia
                         component="img"
                         height="140"
