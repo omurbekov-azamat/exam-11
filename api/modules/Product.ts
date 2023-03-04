@@ -26,6 +26,7 @@ const ProductSchema = new Schema<IProduct>({
     },
     price: {
         type: Number,
+        required: true,
         min: 0.01,
     },
     image: {

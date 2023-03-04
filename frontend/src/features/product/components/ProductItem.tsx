@@ -11,8 +11,8 @@ interface Props {
 const ProductItem: React.FC<Props> = ({item}) => {
     return (
         <Grid item>
-            <Card sx={{ width: 200 }}>
-                <CardActionArea component={NavLink} to={'/items/' + item._id}>
+            <Card sx={{width: 300}}>
+                <CardActionArea component={NavLink} to={'/items/' + item._id} sx={{height: 300}}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -20,12 +20,18 @@ const ProductItem: React.FC<Props> = ({item}) => {
                         alt={item.category}
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Title: {item.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Price: {item.price}
-                        </Typography>
+                        <Grid container direction='column' justifyContent='space-between'>
+                            <Grid item xs>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    Title: {item.title}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs>
+                                <Typography variant="body2" color="text.secondary">
+                                    Price: {item.price}
+                                </Typography>
+                            </Grid>
+                        </Grid>
                     </CardContent>
                 </CardActionArea>
             </Card>
