@@ -4,7 +4,7 @@ import {selectCreateProductLoading, selectProductError} from "../productsSlice";
 import {Grid, MenuItem, TextField, Typography} from '@mui/material';
 import {LoadingButton} from "@mui/lab";
 import FileInput from '../../../components/UI/FileInput/FileInput';
-import {categories} from "../../../constants";
+import {CATEGORIES} from "../../../constants";
 import {ProductMutation} from '../../../types';
 
 interface Props {
@@ -85,8 +85,8 @@ const ProductForm: React.FC<Props> = ({onSubmit}) => {
                         required
                     >
                         <MenuItem value="" disabled>Please select a category</MenuItem>
-                        {categories.map(category => (
-                            <MenuItem key={category} value={category}>{category}</MenuItem>
+                        {CATEGORIES.map(category => (
+                            <MenuItem key={category.id} value={category.id}>{category.title}</MenuItem>
                         ))}
                     </TextField>
                 </Grid>

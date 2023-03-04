@@ -46,3 +46,13 @@ export interface ProductMutation {
     price: string;
     image: File | null;
 }
+
+export interface ProductApi {
+    category: string;
+    description: string;
+    image: string;
+    price: number;
+    title: string;
+    user: string;
+    _id: string;
+}

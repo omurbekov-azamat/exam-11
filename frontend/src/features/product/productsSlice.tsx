@@ -1,16 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
-import {createProduct} from "./productsThunk";
-import {ValidationError} from "../../types";
+import {createProduct, fetchProducts} from "./productsThunk";
+import {ProductApi, ValidationError} from "../../types";
 
 interface ProductsState {
     createProductLoading: boolean;
     productError: ValidationError | null;
+    products: ProductApi[];
+    productsFetchingLoading: boolean;
 }
 
 const initialState: ProductsState = {
     createProductLoading: false,
     productError: null,
+    products: [],
+    productsFetchingLoading: false,
 };
 
 export const productsSlice = createSlice({
@@ -29,6 +33,17 @@ export const productsSlice = createSlice({
             state.createProductLoading = false;
             state.productError = error || null;
         });
+        builder.addCase(fetchProducts.pending, (state) => {
+            state.products = [];
+            state.productsFetchingLoading = true;
+        });
+        builder.addCase(fetchProducts.fulfilled, (state,{payload: products}) => {
+            state.productsFetchingLoading = false;
+            state.products = products;
+        });
+        builder.addCase(fetchProducts.rejected, (state) => {
+            state.productsFetchingLoading = false;
+        });
     }
 });
 
@@ -36,3 +51,5 @@ export const productsReducer = productsSlice.reducer;
 
 export const selectCreateProductLoading = (state: RootState) => state.products.createProductLoading;
 export const selectProductError = (state: RootState) => state.products.productError;
+export const selectProducts = (state: RootState) => state.products.products;
+export const selectProductsLoading = (state: RootState) => state.products.productsFetchingLoading

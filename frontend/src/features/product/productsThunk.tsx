@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {isAxiosError} from "axios";
 import axiosApi from "../../axiosApi";
-import {ProductMutation, ValidationError} from "../../types";
+import {ProductApi, ProductMutation, ValidationError} from "../../types";
 
 export const createProduct = createAsyncThunk<void, ProductMutation, {state: RootState, rejectValue: ValidationError}>(
     'products/createProduct',
@@ -28,6 +28,24 @@ export const createProduct = createAsyncThunk<void, ProductMutation, {state: Roo
                 return rejectWithValue(e.response.data as ValidationError);
             }
 
+            throw e;
+        }
+    }
+);
+
+export const fetchProducts = createAsyncThunk<ProductApi[], string | undefined>(
+    'products/fetchAll',
+    async (category) => {
+        try {
+            let url = '/products';
+
+            if (category) {
+                url = '/products/' + category;
+            }
+
+            const response = await axiosApi.get<ProductApi[]>(url);
+            return response.data;
+        } catch (e) {
             throw e;
         }
     }
