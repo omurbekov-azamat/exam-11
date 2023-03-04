@@ -1,5 +1,11 @@
+import path from 'path';
+
+const rootPath = __dirname;
+
 const config = {
-    db: 'mongodb://localhost/lalafo',
+    rootPath,
+    publicPath: path.join(rootPath, 'public'),
+    db: 'mongodb://localhost/reddit',
 };
 
 export default config;
